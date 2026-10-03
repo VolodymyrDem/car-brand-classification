@@ -1,0 +1,10 @@
+,value
+images,12681.0
+makes,20.0
+models,153.0
+train,8876.0
+test,1903.0
+val,1902.0
+imbalance_ratio_max_min,5.73
+median_width,640.0
+median_height,426.0

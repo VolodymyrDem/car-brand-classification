@@ -7,8 +7,9 @@ and comparing three models of increasing complexity.
 Multiclass image classification: input — car photo, output — brand (Audi, BMW, Toyota, ...).
 
 ## Dataset
-[Stanford Cars](https://www.kaggle.com/datasets/jessicali9530/stanford-cars-dataset) — 16,185 images, 196 model classes,
-aggregated into car **makes** (brands). Images are cropped by bounding boxes and resized.
+[Stanford Cars](https://huggingface.co/datasets/tanganke/stanford_cars) — 16,185 images of 196 car models (49 makes).
+Models are aggregated into **makes**; makes with at least 300 images are kept:
+**20 makes, 12,681 images**, stratified split 70 / 15 / 15 (train 8,876 / val 1,902 / test 1,903).
 
 ## Models
 | Level | Model | Approach |
@@ -38,4 +39,9 @@ docs/            report
 ```bash
 python -m venv .venv && source .venv/bin/activate
 pip install -r requirements.txt
+
+python scripts/prepare_data.py   # download, map to makes, split -> data/processed
+python scripts/eda.py            # dataset figures -> reports/figures, reports/tables
 ```
+
+Theory and full work plan (in Ukrainian): [docs/theory.md](docs/theory.md).

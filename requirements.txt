@@ -11,3 +11,4 @@ kagglehub
 jupyter
 grad-cam
 gradio
+datasets
