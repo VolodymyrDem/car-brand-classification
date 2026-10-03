@@ -13,18 +13,21 @@ aggregated into car **makes** (brands). Images are cropped by bounding boxes and
 ## Models
 | Level | Model | Approach |
 |---|---|---|
-| 1 — Simple | Logistic (softmax) regression on HOG + color histogram features | Linear classical ML |
-| 2 — Medium | Random Forest / SVM (RBF) on the same features | Non-linear classical ML |
-| 3 — Complex | CNN (pretrained EfficientNet / ResNet, fine-tuned) | Deep learning, transfer learning |
+| 1 — Simple | Custom CNN trained from scratch (3–4 conv blocks) | Baseline convolutional network |
+| 2 — Medium | ResNet18 pretrained on ImageNet, fine-tuned | Deep residual CNN, transfer learning |
+| 3 — Complex | Vision Transformer (ViT-Small / DeiT), fine-tuned | Self-attention over image patches, transfer learning |
+
+All models are trained locally with PyTorch (Apple MPS / CUDA / CPU auto-detection).
 
 ## Evaluation
-Accuracy, top-3 accuracy, macro F1, confusion matrix, training time, model size; Grad-CAM for the CNN.
+Accuracy, top-3 accuracy, macro F1, confusion matrix, learning curves, training time, model size;
+Grad-CAM / attention maps for interpretability.
 
 ## Project structure
 ```
 data/            raw and processed data (not tracked)
 notebooks/       EDA and experiments
-src/             data loading, features, models, training, evaluation
+src/             data loading, models, training, evaluation
 scripts/         CLI entry points
 models/          trained weights (not tracked)
 reports/         figures and tables for the report
