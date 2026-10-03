@@ -66,6 +66,30 @@ def main() -> None:
     fig.savefig(C.FIGURES_DIR / "comparison_quality_vs_time.png", dpi=150)
     plt.close(fig)
 
+    plot_per_class_f1(df["model"].tolist())
+
+
+def plot_per_class_f1(models: list[str]) -> None:
+    per_class = {}
+    for m in models:
+        path = C.TABLES_DIR / f"classification_report_{m}.csv"
+        if path.exists():
+            rep = pd.read_csv(path, index_col=0)
+            per_class[NAMES[m]] = rep.drop(index=["accuracy", "macro avg", "weighted avg"], errors="ignore")["f1-score"]
+    if not per_class:
+        return
+    table = pd.DataFrame(per_class)
+    table = table.sort_values(table.columns[-1])
+    table.round(4).to_csv(C.TABLES_DIR / "per_class_f1.csv")
+    ax = table.plot.barh(figsize=(10, 9), width=0.8)
+    ax.set_xlabel("F1-score (test)")
+    ax.set_xlim(0, 1)
+    ax.set_title("Per-make F1-score by model")
+    ax.grid(axis="x", alpha=0.3)
+    plt.tight_layout()
+    plt.savefig(C.FIGURES_DIR / "comparison_per_class_f1.png", dpi=150)
+    plt.close()
+
 
 if __name__ == "__main__":
     main()

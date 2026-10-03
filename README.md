@@ -29,9 +29,9 @@ Grad-CAM / attention maps for interpretability.
 data/            raw and processed data (not tracked)
 docs/            theory notes and report
 models/          trained weights (not tracked)
-notebooks/       Colab training notebook
+notebooks/       EDA notebook (01_eda) and Colab training notebook
 reports/         figures and tables produced by scripts
-scripts/         prepare_data, eda, train_classical, train_deep, compare
+scripts/         prepare_data, eda, train_classical, train_deep, compare, interpret
 src/             config, features, datasets, evaluation helpers
 ```
 
@@ -51,6 +51,8 @@ python scripts/train_classical.py                  # level 1: logistic regressio
 python scripts/train_deep.py --model resnet18      # level 2
 python scripts/train_deep.py --model vit_small     # level 3
 python scripts/compare.py                          # comparison table and charts
+python scripts/interpret.py                        # Grad-CAM, ViT attention rollout, error analysis
 ```
 
 Theory and full work plan (in Ukrainian): [docs/theory.md](docs/theory.md).
+Report (in Ukrainian): [docs/report.md](docs/report.md).
