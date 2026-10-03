@@ -12,3 +12,5 @@ jupyter
 grad-cam
 gradio
 datasets
+scikit-image
+tabulate

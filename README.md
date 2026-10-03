@@ -14,11 +14,11 @@ Models are aggregated into **makes**; makes with at least 300 images are kept:
 ## Models
 | Level | Model | Approach |
 |---|---|---|
-| 1 — Simple | Custom CNN trained from scratch (3–4 conv blocks) | Baseline convolutional network |
-| 2 — Medium | ResNet18 pretrained on ImageNet, fine-tuned | Deep residual CNN, transfer learning |
-| 3 — Complex | Vision Transformer (ViT-Small / DeiT), fine-tuned | Self-attention over image patches, transfer learning |
+| 1 — Classical ML | Logistic Regression, Random Forest on HOG + HSV color histogram features | scikit-learn, hyperparameters tuned with stratified 5-fold CV |
+| 2 — CNN | ResNet18 pretrained on ImageNet, fine-tuned | Deep residual CNN, transfer learning |
+| 3 — Transformer | ViT-Small/16 pretrained on ImageNet-21k, fine-tuned | Self-attention over image patches, transfer learning |
 
-All models are trained locally with PyTorch (Apple MPS / CUDA / CPU auto-detection).
+Deep models are trained in Google Colab (NVIDIA T4); the code auto-selects CUDA / Apple MPS / CPU.
 
 ## Evaluation
 Accuracy, top-3 accuracy, macro F1, confusion matrix, learning curves, training time, model size;
@@ -27,21 +27,30 @@ Grad-CAM / attention maps for interpretability.
 ## Project structure
 ```
 data/            raw and processed data (not tracked)
-notebooks/       EDA and experiments
-src/             data loading, models, training, evaluation
-scripts/         CLI entry points
+docs/            theory notes and report
 models/          trained weights (not tracked)
-reports/         figures and tables for the report
-docs/            report
+notebooks/       Colab training notebook
+reports/         figures and tables produced by scripts
+scripts/         prepare_data, eda, train_classical, train_deep, compare
+src/             config, features, datasets, evaluation helpers
 ```
 
-## Setup
+## Run in Google Colab
+Open [`notebooks/colab_train.ipynb`](notebooks/colab_train.ipynb) in Colab
+([direct link](https://colab.research.google.com/github/VolodymyrDem/car-brand-classification/blob/main/notebooks/colab_train.ipynb)),
+select *Runtime → Change runtime type → T4 GPU* and run all cells.
+
+## Run locally
 ```bash
 python -m venv .venv && source .venv/bin/activate
 pip install -r requirements.txt
 
-python scripts/prepare_data.py   # download, map to makes, split -> data/processed
-python scripts/eda.py            # dataset figures -> reports/figures, reports/tables
+python scripts/prepare_data.py                     # download, map to makes, split -> data/processed
+python scripts/eda.py                              # dataset figures
+python scripts/train_classical.py                  # level 1: logistic regression + random forest (5-fold CV)
+python scripts/train_deep.py --model resnet18      # level 2
+python scripts/train_deep.py --model vit_small     # level 3
+python scripts/compare.py                          # comparison table and charts
 ```
 
 Theory and full work plan (in Ukrainian): [docs/theory.md](docs/theory.md).
