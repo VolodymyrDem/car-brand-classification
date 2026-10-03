@@ -1,0 +1,27 @@
+{
+  "model": "resnet18",
+  "accuracy": 0.9106673673147662,
+  "top3_accuracy": 0.9758276405675249,
+  "macro_f1": 0.9125826255029276,
+  "weighted_f1": 0.910308737251055,
+  "level": 2,
+  "timm_name": "resnet18.a1_in1k",
+  "params_millions": 11.19,
+  "epochs_run": 20,
+  "best_epoch": 20,
+  "best_val_macro_f1": 0.9181270871339265,
+  "train_time_s": 1487.8,
+  "inference_ms_per_image": 3.86,
+  "model_size_mb": 42.75,
+  "device": "cuda",
+  "hyperparams": {
+    "epochs": 20,
+    "freeze_epochs": 2,
+    "batch_size": 64,
+    "lr": 0.001,
+    "head_lr": 0.003,
+    "weight_decay": 0.05,
+    "label_smoothing": 0.1,
+    "input_size": 224
+  }
+}

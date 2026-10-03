@@ -2,19 +2,19 @@
   "model": "logreg",
   "accuracy": 0.20073568050446663,
   "top3_accuracy": 0.42722017866526535,
-  "macro_f1": 0.16158932298893253,
-  "weighted_f1": 0.1923792168900104,
+  "macro_f1": 0.16159478652116066,
+  "weighted_f1": 0.19240055381851742,
   "level": 1,
   "best_params": {
     "clf__C": 0.01,
     "clf__class_weight": null,
     "pca__n_components": 512
   },
-  "cv_macro_f1_mean": 0.16838369165673311,
-  "cv_macro_f1_std": 0.004590894112714045,
-  "cv_search_time_s": 10.2,
-  "train_time_s": 0.8,
-  "inference_ms_per_image": 0.005,
-  "model_size_mb": 5.63,
+  "cv_macro_f1_mean": 0.16826137767993313,
+  "cv_macro_f1_std": 0.004592308757541893,
+  "cv_search_time_s": 371.0,
+  "train_time_s": 29.5,
+  "inference_ms_per_image": 0.113,
+  "model_size_mb": 5.67,
   "n_features": 2820
 }
