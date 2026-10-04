@@ -56,3 +56,14 @@ python scripts/interpret.py                        # Grad-CAM, ViT attention rol
 
 Theory and full work plan (in Ukrainian): [docs/theory.md](docs/theory.md).
 Report (in Ukrainian): [docs/report.md](docs/report.md).
+
+## Try it on your own photo
+Put the trained weights `resnet18.pt` and `vit_small.pt` into `models/`
+(Colab saves them to Google Drive: `MyDrive/car-brand-classification/models/`), then:
+```bash
+python scripts/predict.py my_car.jpg   # command line
+python app.py                          # web demo at http://127.0.0.1:7860
+```
+Supported makes (20): Acura, Aston Martin, Audi, BMW, Bentley, Buick, Chevrolet, Chrysler, Dodge, Ferrari,
+Ford, GMC, Honda, Hyundai, Jeep, Lamborghini, Mercedes-Benz, Nissan, Suzuki, Toyota.
+A photo of any other make will still be assigned to one of these 20.
