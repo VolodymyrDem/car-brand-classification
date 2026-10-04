@@ -28,7 +28,7 @@ Grad-CAM / attention maps for interpretability.
 ```
 data/            raw and processed data (not tracked)
 docs/            theory notes and report
-models/          trained weights (not tracked)
+models/          trained weights (not tracked; all four models are in the v1.0 release)
 notebooks/       EDA notebook (01_eda) and Colab training notebook
 reports/         figures and tables produced by scripts
 scripts/         prepare_data, eda, train_classical, train_deep, compare, interpret
@@ -68,15 +68,24 @@ top-5 makes predicted by ResNet18, ViT-Small and their average (ensemble).
    python -m venv .venv && source .venv/bin/activate
    pip install -r requirements.txt
    ```
-2. **Get the trained weights.** They are not stored in git (too large). Download `resnet18.pt` (43 MB)
-   and `vit_small.pt` (83 MB) from Google Drive `MyDrive/car-brand-classification/models/`
-   (Colab saves them there after training) and put them into the `models/` folder:
+2. **Get the trained weights.** They are not stored in git (too large) and are published as a
+   [GitHub release](https://github.com/VolodymyrDem/car-brand-classification/releases/tag/v1.0):
+   [`resnet18.pt`](https://github.com/VolodymyrDem/car-brand-classification/releases/download/v1.0/resnet18.pt) (43 MB) and
+   [`vit_small.pt`](https://github.com/VolodymyrDem/car-brand-classification/releases/download/v1.0/vit_small.pt) (83 MB).
+   Download them into the `models/` folder:
+   ```bash
+   curl -L -o models/resnet18.pt https://github.com/VolodymyrDem/car-brand-classification/releases/download/v1.0/resnet18.pt
+   curl -L -o models/vit_small.pt https://github.com/VolodymyrDem/car-brand-classification/releases/download/v1.0/vit_small.pt
+   ```
    ```
    models/
    ├── resnet18.pt
    └── vit_small.pt
    ```
    One of the two is enough; the ensemble is shown only when both are present.
+   Alternatively, train your own weights with `scripts/train_deep.py` or the Colab notebook.
+   The release also contains the level-1 models (`logreg.joblib`, `random_forest.joblib`, scikit-learn
+   pipelines over the HOG + HSV features from `src/features.py`); the demo does not use them.
 3. **Start the web demo:**
    ```bash
    python app.py
