@@ -57,13 +57,45 @@ python scripts/interpret.py                        # Grad-CAM, ViT attention rol
 Theory and full work plan (in Ukrainian): [docs/theory.md](docs/theory.md).
 Report (in Ukrainian): [docs/report.md](docs/report.md).
 
-## Try it on your own photo
-Put the trained weights `resnet18.pt` and `vit_small.pt` into `models/`
-(Colab saves them to Google Drive: `MyDrive/car-brand-classification/models/`), then:
+## Try it on your own photo (web demo)
+
+The demo is a small [Gradio](https://www.gradio.app/) web page: upload a car photo and see the
+top-5 makes predicted by ResNet18, ViT-Small and their average (ensemble).
+
+1. **Install dependencies** (once):
+   ```bash
+   cd car-brand-classification
+   python -m venv .venv && source .venv/bin/activate
+   pip install -r requirements.txt
+   ```
+2. **Get the trained weights.** They are not stored in git (too large). Download `resnet18.pt` (43 MB)
+   and `vit_small.pt` (83 MB) from Google Drive `MyDrive/car-brand-classification/models/`
+   (Colab saves them there after training) and put them into the `models/` folder:
+   ```
+   models/
+   ├── resnet18.pt
+   └── vit_small.pt
+   ```
+   One of the two is enough; the ensemble is shown only when both are present.
+3. **Start the web demo:**
+   ```bash
+   python app.py
+   ```
+   Open http://127.0.0.1:7860 in a browser, drag a photo into the *Photo* field — predictions
+   appear immediately. Stop the server with `Ctrl+C`.
+
+   To get a temporary public link (e.g. to show the demo from another device), run
+   `python -c "import app; app.demo.launch(share=True)"`.
+
+Without a browser, the same models can be used from the command line:
 ```bash
-python scripts/predict.py my_car.jpg   # command line
-python app.py                          # web demo at http://127.0.0.1:7860
+python scripts/predict.py my_car.jpg another_car.png --top 3
 ```
+
 Supported makes (20): Acura, Aston Martin, Audi, BMW, Bentley, Buick, Chevrolet, Chrysler, Dodge, Ferrari,
 Ford, GMC, Honda, Hyundai, Jeep, Lamborghini, Mercedes-Benz, Nissan, Suzuki, Toyota.
-A photo of any other make will still be assigned to one of these 20.
+
+Tips and limitations:
+- a photo of any other make (Tesla, Volkswagen, Kia, …) will still be assigned to one of these 20;
+- the training data contains cars up to the 2012 model year, so newer designs are recognised worse;
+- best results: the car fills most of the frame and the front (grille, headlights, logo) is visible.
